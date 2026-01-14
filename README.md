@@ -2,25 +2,6 @@
 
 Sistema web para la gestión de horarios escolares de la Facultad de Ingeniería, que permite a los estudiantes inscribir materias, visualizar su horario semanal y compartirlo con otros usuarios en tiempo real.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![PHP](https://img.shields.io/badge/PHP-7.4+-purple.svg)
-![MySQL](https://img.shields.io/badge/MySQL-5.7+-orange.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-
-## 📋 Tabla de Contenidos
-
-- [Características](#-características)
-- [Tecnologías Utilizadas](#-tecnologías-utilizadas)
-- [Requisitos del Sistema](#-requisitos-del-sistema)
-- [Instalación](#-instalación)
-- [Configuración](#-configuración)
-- [Uso](#-uso)
-- [Estructura del Proyecto](#-estructura-del-proyecto)
-- [Capturas de Pantalla](#-capturas-de-pantalla)
-- [API Endpoints](#-api-endpoints)
-- [Contribuir](#-contribuir)
-- [Licencia](#-licencia)
-
 ## ✨ Características
 
 ### 🔐 Autenticación y Sesiones
@@ -45,7 +26,6 @@ Sistema web para la gestión de horarios escolares de la Facultad de Ingeniería
 - ✅ Guardar horario en base de datos
 - ✅ Reiniciar horario completo
 - ✅ Exportar horario a PDF
-- ✅ Colores diferenciados por tipo de materia (gradientes)
 - ✅ Vista responsive optimizada para móviles
 
 ### 📊 Estadísticas
@@ -54,7 +34,7 @@ Sistema web para la gestión de horarios escolares de la Facultad de Ingeniería
 - ✅ Total de horas semanales
 
 ### 🔗 Compartir Horario
-- ✅ Generar enlace único para compartir horario
+- ✅ Generar enlace único para compartir horario a tus amigos
 - ✅ Visualizar horarios compartidos
 - ✅ Copiar enlace al portapapeles
 - ✅ Página dedicada para ver horarios compartidos
@@ -64,7 +44,6 @@ Sistema web para la gestión de horarios escolares de la Facultad de Ingeniería
 - ✅ Vista de tabla en pantallas grandes
 - ✅ Vista de cards por días en dispositivos móviles
 - ✅ Navegación intuitiva con tabs en móvil
-- ✅ Interfaz táctil-friendly
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -89,109 +68,6 @@ Sistema web para la gestión de horarios escolares de la Facultad de Ingeniería
   - `materias` - Catálogo de materias
   - `horarios_usuarios` - Horarios guardados por usuario
   - `horarios_compartidos` - Enlaces para compartir horarios
-
-## 📦 Requisitos del Sistema
-
-### Servidor
-- PHP 7.4 o superior
-- MySQL 5.7 o superior (o MariaDB equivalente)
-- Apache 2.4+ (incluido en XAMPP)
-- Extensiones PHP requeridas:
-  - `mysqli`
-  - `json`
-  - `session`
-
-### Cliente
-- Navegador moderno (Chrome, Firefox, Edge, Safari)
-- JavaScript habilitado
-- Resolución mínima: 320px (móvil)
-
-## 🚀 Instalación
-
-### Paso 1: Clonar el Repositorio
-
-```bash
-git clone https://github.com/tu-usuario/horario-fi.git
-cd horario-fi
-```
-
-### Paso 2: Configurar el Servidor
-
-1. **Instalar XAMPP** (si no lo tienes instalado)
-   - Descarga desde: https://www.apachefriends.org/
-   - Instala Apache y MySQL
-
-2. **Copiar el proyecto**
-   ```bash
-   # Windows
-   copiar la carpeta horario-fi a C:\xampp\htdocs\
-   
-   # Linux/Mac
-   copiar la carpeta horario-fi a /opt/lampp/htdocs/ o /Applications/XAMPP/htdocs/
-   ```
-
-### Paso 3: Configurar la Base de Datos
-
-1. **Iniciar XAMPP**
-   - Abre el Panel de Control de XAMPP
-   - Inicia Apache y MySQL
-
-2. **Acceder a phpMyAdmin**
-   - Abre tu navegador y ve a: `http://localhost/phpmyadmin`
-
-3. **Crear la base de datos**
-   - Ve a la pestaña "SQL"
-   - Copia y pega el contenido de `database/crear_base_datos.sql`
-   - Ejecuta el script
-
-4. **Crear tabla de horarios compartidos**
-   - Ejecuta el script `database/crear_tabla_horarios_compartidos.sql`
-
-### Paso 4: Configurar la Conexión a la Base de Datos
-
-Edita el archivo `php/config.php` con tus credenciales:
-
-```php
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');        // Tu usuario de MySQL
-define('DB_PASS', '');            // Tu contraseña de MySQL
-define('DB_NAME', 'horario_fi');
-```
-
-### Paso 5: Acceder al Proyecto
-
-Abre tu navegador y ve a:
-```
-http://localhost/horario-fi/
-```
-
-## ⚙️ Configuración
-
-### Usuarios de Prueba
-
-El script SQL incluye un usuario de prueba:
-- **Número de cuenta:** 318232997
-- **Contraseña:** 123456
-
-### Insertar Materias
-
-Para poblar la base de datos con materias, puedes:
-1. Insertarlas manualmente desde phpMyAdmin
-2. Usar scripts SQL personalizados
-3. Importar desde un archivo CSV (requiere script adicional)
-
-### Personalización
-
-- **Colores de materias:** Edita la función `obtenerColorMateria()` en `js/app.js`
-- **Límites de créditos:** Modifica las constantes en `js/app.js`:
-  ```javascript
-  const LIMITE_MAXIMO_CREDITOS = 60;
-  const LIMITE_MINIMO_CREDITOS = 40;
-  ```
-- **Timeout de sesión:** Modifica en `js/login.js`:
-  ```javascript
-  const SESSION_TIMEOUT = 480; // 8 minutos en segundos
-  ```
 
 ## 📖 Uso
 
@@ -225,16 +101,6 @@ Para poblar la base de datos con materias, puedes:
    - Haz clic en "Exportar PDF"
    - Descarga tu horario en formato PDF
 
-### Para Administradores
-
-1. **Gestionar Materias**
-   - Accede a phpMyAdmin
-   - Modifica la tabla `materias` según sea necesario
-   - Actualiza cupos disponibles
-
-2. **Gestionar Usuarios**
-   - Accede a la tabla `usuarios` en phpMyAdmin
-   - Crea, modifica o elimina usuarios
 
 ## 📁 Estructura del Proyecto
 
@@ -322,75 +188,7 @@ horario-fi/
 - `POST /php/compartir_horario.php` - Generar enlace compartido
 - `GET /php/obtener_horario_compartido.php?codigo={codigo}` - Obtener horario compartido
 
-## 🔒 Seguridad
-
-### Implementado
-- ✅ Prepared statements para prevenir SQL injection
-- ✅ Validación de sesiones en el servidor
-- ✅ Sanitización de entradas
-- ✅ Timeout de sesión automático
-
-### Recomendaciones para Producción
-- ⚠️ Usar `password_hash()` y `password_verify()` para contraseñas
-- ⚠️ Implementar protección CSRF
-- ⚠️ Configurar HTTPS
-- ⚠️ Implementar rate limiting para el login
-- ⚠️ Validar y sanitizar todas las entradas
-- ⚠️ Restringir acceso a archivos sensibles
-- ⚠️ Configurar headers de seguridad
-- ⚠️ Implementar logging de errores
-
-## 🐛 Solución de Problemas
-
-### Error: "Error de conexión"
-- Verifica que Apache y MySQL estén corriendo en XAMPP
-- Accede desde `http://localhost/horario-fi/` (NO desde Live Server)
-- Verifica las credenciales en `php/config.php`
-
-### Error: "Base de datos no encontrada"
-- Ejecuta el script `database/crear_base_datos.sql` en phpMyAdmin
-- Verifica que el nombre de la base de datos sea `horario_fi`
-
-### Las materias no aparecen
-- Verifica que la tabla `materias` tenga datos
-- Revisa que las materias tengan `activa = TRUE`
-- Verifica la conexión a la base de datos
-
-### El PDF está en blanco
-- Verifica que `html2canvas` y `jsPDF` estén cargados correctamente
-- Revisa la consola del navegador para errores
-- Asegúrate de tener materias inscritas antes de exportar
-
-## 🤝 Contribuir
-
-Las contribuciones son bienvenidas. Por favor:
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-## 📝 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
 ## 👥 Autores
 
-- **Tu Nombre** - *Desarrollo inicial* - [TuGitHub](https://github.com/tu-usuario)
+- **Diego Esparza Rodríguez** - *Desarrollo inicial* - [TuGitHub](https://github.com/diegoesr)
 
-## 🙏 Agradecimientos
-
-- Facultad de Ingeniería por el apoyo y requerimientos
-- Bootstrap por el framework CSS
-- Comunidad de desarrolladores PHP y JavaScript
-
-## 📞 Contacto
-
-Para preguntas o soporte:
-- Email: tu-email@ejemplo.com
-- GitHub Issues: [Crear un issue](https://github.com/tu-usuario/horario-fi/issues)
-
----
-
-⭐ Si este proyecto te fue útil, considera darle una estrella en GitHub!
