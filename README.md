@@ -141,30 +141,28 @@ horario-fi/
 ## 📸 Capturas de Pantalla
 
 ### Pantalla de Login
-![Login](screenshots/login.png)
+![Login](screenshots/login.jpg)
 *Interfaz de inicio de sesión con diseño moderno y gradientes*
 
 ### Dashboard Principal
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/dashboard.jpg)
 *Vista principal con búsqueda de materias, estadísticas y horario semanal*
 
 ### Horario Semanal
-![Horario](screenshots/horario.png)
+![Horario](screenshots/horario.jpg)
 *Visualización del horario semanal con materias inscritas y colores diferenciados*
 
 ### Vista Móvil
-![Mobile](screenshots/mobile.png)
+![Mobile](screenshots/mobile.jpg)
 *Vista responsive optimizada para dispositivos móviles con navegación por tabs*
 
 ### Compartir Horario
-![Compartir](screenshots/compartir.png)
+![Compartir](screenshots/compartir.jpg)
 *Modal para compartir el horario con enlace único*
 
 ### Exportar PDF
-![PDF](screenshots/pdf.png)
+![PDF](screenshots/pdf.jpg)
 *Ejemplo de horario exportado en formato PDF*
-
-> **Nota:** Las capturas de pantalla deben agregarse en la carpeta `screenshots/` del proyecto.
 
 ## 🔌 API Endpoints
 
@@ -190,5 +188,5 @@ horario-fi/
 
 ## 👥 Autores
 
-- **Diego Esparza Rodríguez** - *Desarrollo inicial* - [TuGitHub](https://github.com/diegoesr)
+- **Diego Esparza Rodríguez** - *Desarrollo inicial* - [diegoesr](https://github.com/diegoesr)
 

@@ -152,7 +152,7 @@
                                     <strong>Código:</strong> ${materia.codigo} | 
                                     <strong>Profesor:</strong> ${materia.profesor || 'Sin asignar'} | 
                                     <strong>Créditos:</strong> ${materia.creditos} | 
-                                    <strong>Horario:</strong> ${materia.dias} ${materia.hora_inicio} - ${materia.hora_fin}
+                                    <strong>Horario:</strong> ${materia.dias} ${materia.hora_inicio.substring(0, 5)} - ${materia.hora_fin.substring(0, 5)}
                                 </small>
                             </div>
                         </div>
