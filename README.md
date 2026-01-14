@@ -155,9 +155,7 @@ horario-fi/
 ### Vista Móvil
 ![Mobile](screenshots/mobile.jpg)
 *Vista responsive optimizada para dispositivos móviles con navegación por tabs*
-
-### Compartir Horario
-![Compartir](screenshots/compartir.jpg)
+[Compartir](screenshots/compartir.jpg)
 *Modal para compartir el horario con enlace único*
 
 ### Exportar PDF
