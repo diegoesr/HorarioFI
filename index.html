@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Horario FI - Sistema de Horario Escolar en Tiempo Real</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Header Principal con fondo rojo -->
+    <header class="main-header">
+        <div class="header-content">
+            <img src="img/logo.png" alt="Logo Facultad de Ingeniería" class="header-logo">
+            <div class="header-text">
+                <h2 class="header-title">Sistema de Inscripción</h2>
+                <h3 class="header-subtitle">Facultad de Ingeniería</h3>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal -->
+    <div class="container-fluid min-vh-100">
+        <!-- Sección de Login (RF-01) -->
+        <section id="login-section" class="login-container d-flex align-items-center justify-content-center">
+            <div class="login-wrapper">
+
+                <!-- Card de Login -->
+                <div class="login-card">
+                    <!-- Barra de título del login -->
+                    <div class="login-card-header">
+                        <h4 class="login-card-title">Iniciar Sesión</h4>
+                    </div>
+
+                    <!-- Contenido del login -->
+                    <div class="login-card-body">
+                        <form id="login-form" class="login-form">
+                            <!-- Campo Número de Cuenta -->
+                            <div class="input-group-custom mb-3">
+                                <span class="input-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
+                                <input type="text" class="form-control-custom" id="numero-cuenta" name="numero-cuenta"
+                                    placeholder="Número de cuenta" required>
+                            </div>
+
+                            <!-- Campo Contraseña -->
+                            <div class="input-group-custom mb-4">
+                                <span class="input-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+                                <input type="password" class="form-control-custom" id="password" name="password"
+                                    placeholder="Contraseña" required>
+                                <span class="toggle-password" id="toggle-password"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg></span>
+                            </div>
+
+                            <!-- Botón Ingresar -->
+                            <button type="submit" class="btn-login">
+                                Ingresar
+                            </button>
+
+                            <!-- Enlace Recuperar Contraseña -->
+                            <div class="text-center mt-3">
+                                <a href="#" class="link-recover">Recuperar contraseña</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Principal del Horario (oculta inicialmente) -->
+        <section id="main-section" class="d-none">
+            <!-- Header Principal del Horario -->
+            <header class="bg-danger text-white py-3 shadow-sm">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 d-flex align-items-center">
+                            <img src="img/logo.png" alt="Logo FI" class="me-3" style="height: 50px;">
+                            <div>
+                                <h1 class="h4 mb-0 fw-bold">Horario FI</h1>
+                                <p class="mb-0 small opacity-90">Sistema de Horarios en Tiempo Real</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end align-items-center gap-3">
+                            <span class="d-flex align-items-center">
+                                <span class="me-2" style="display: inline-flex; align-items: center;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
+                                <span id="usuario-nombre"></span>
+                            </span>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="timer-elegante" id="timer-display" style="display: none;">
+                                    <span class="timer-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span class="timer-label">Tiempo restante:</span>
+                                    <span class="timer-value" id="timer-text">5:00</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-light btn-sm" id="logout-btn">
+                                <span style="display: inline-flex; align-items: center; margin-right: 0.25rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></span> Cerrar Sesión
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Contenido Principal -->
+            <div class="container-fluid py-4 bg-light" style="min-height: calc(100vh - 100px);">
+                <div class="row g-4">
+                    <!-- Sidebar Izquierdo -->
+                    <div class="col-lg-4">
+                        <!-- Búsqueda de Materias -->
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">
+                                    <span style="display: inline-flex; align-items: center; margin-right: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></span>Buscar Materias
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 position-relative">
+                                    <span class="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" style="display: inline-flex; align-items: center;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></span>
+                                    <input type="text" 
+                                           class="form-control ps-5" 
+                                           id="busqueda-materia"
+                                           placeholder="Buscar por nombre, código o profesor...">
+                                </div>
+                                
+                                <!-- Filtros -->
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold mb-2">
+                                        <span style="display: inline-flex; align-items: center; margin-right: 0.25rem;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg></span>
+                                        Filtrar por Créditos:
+                                    </label>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input filtro-creditos" type="checkbox" value="4" id="creditos-4">
+                                            <label class="form-check-label" for="creditos-4">4</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input filtro-creditos" type="checkbox" value="6" id="creditos-6">
+                                            <label class="form-check-label" for="creditos-6">6</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input filtro-creditos" type="checkbox" value="8" id="creditos-8">
+                                            <label class="form-check-label" for="creditos-8">8</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input filtro-creditos" type="checkbox" value="10" id="creditos-10">
+                                            <label class="form-check-label" for="creditos-10">10</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold mb-2">
+                                        <span style="display: inline-flex; align-items: center; margin-right: 0.25rem;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+                                        Filtrar por Días:
+                                    </label>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input filtro-dias" type="checkbox" value="Lunes" id="dia-lunes">
+                                            <label class="form-check-label" for="dia-lunes">Lunes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input filtro-dias" type="checkbox" value="Martes" id="dia-martes">
+                                            <label class="form-check-label" for="dia-martes">Martes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input filtro-dias" type="checkbox" value="Miércoles" id="dia-miercoles">
+                                            <label class="form-check-label" for="dia-miercoles">Miércoles</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input filtro-dias" type="checkbox" value="Jueves" id="dia-jueves">
+                                            <label class="form-check-label" for="dia-jueves">Jueves</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input filtro-dias" type="checkbox" value="Viernes" id="dia-viernes">
+                                            <label class="form-check-label" for="dia-viernes">Viernes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input filtro-dias" type="checkbox" value="Sábado" id="dia-sabado">
+                                            <label class="form-check-label" for="dia-sabado">Sábado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm w-100" id="limpiar-filtros-btn">
+                                        <span style="display: inline-flex; align-items: center; margin-right: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></span>
+                                        Limpiar Filtros
+                                    </button>
+                                </div>
+                                
+                                <div id="materias-disponibles" class="materias-list" style="max-height: 400px; overflow-y: auto;">
+                                    <p class="text-muted text-center mb-0 py-3">
+                                        <span style="display: inline-flex; align-items: center; margin-right: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>
+                                        Ingresa un término de búsqueda...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Estadísticas -->
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-header bg-danger text-white">
+                                <h5 class="mb-0">
+                                    <span style="display: inline-flex; align-items: center; margin-right: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></span>Estadísticas
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                    <span class="d-flex align-items-center">
+                                        <span class="text-danger me-2" style="display: inline-flex; align-items: center;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></span>
+                                        Materias inscritas:
+                                    </span>
+                                    <span class="fw-bold fs-5" id="stat-materias">0</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                    <span class="d-flex align-items-center">
+                                        <span class="text-danger me-2" style="display: inline-flex; align-items: center;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg></span>
+                                        Total créditos:
+                                    </span>
+                                    <span class="fw-bold fs-5" id="stat-creditos">0</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center py-2">
+                                    <span class="d-flex align-items-center">
+                                        <span class="text-danger me-2" style="display: inline-flex; align-items: center;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+                                        Horas semanales:
+                                    </span>
+                                    <span class="fw-bold fs-5" id="stat-horas">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botones de Acción -->
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success btn-lg" id="guardar-horario-btn">
+                                <span style="display: inline-flex; align-items: center; margin-right: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></span>Guardar Horario
+                            </button>
+                            <button class="btn btn-warning btn-lg" id="reiniciar-horario-btn">
+                                <span style="display: inline-flex; align-items: center; margin-right: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></span>Reiniciar Horario
+                            </button>
+                            <button class="btn btn-primary btn-lg" id="exportar-pdf-btn">
+                                <span style="display: inline-flex; align-items: center; margin-right: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></span>Exportar PDF
+                            </button>
+                            <button class="btn btn-info btn-lg" id="compartir-horario-btn">
+                                <span style="display: inline-flex; align-items: center; margin-right: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg></span>Compartir Horario
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Área Principal del Horario -->
+                    <div class="col-lg-8">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-gradient text-white" 
+                                 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <h5 class="mb-0">
+                                    <span style="display: inline-flex; align-items: center; margin-right: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>Mi Horario
+                                </h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="mb-0 rounded-0 border-0 border-bottom" style="background: transparent; border-top: 1px solid #dee2e6 !important;">
+                                    <div class="d-flex align-items-center justify-content-center py-2">
+                                        <strong>El total de créditos permitidos son de 60</strong>
+                                    </div>
+                                </div>
+                                
+                                <!-- Vista Desktop: Tabla tradicional -->
+                                <div class="table-responsive d-none d-lg-block">
+                                    <table class="table table-bordered table-hover mb-0" id="tabla-horario" style="table-layout: fixed;">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th class="text-center fw-bold" style="width: 80px; background-color: #f8f9fa;">Hora</th>
+                                                <th class="text-center" style="width: 14%;">Lun</th>
+                                                <th class="text-center" style="width: 14%;">Mar</th>
+                                                <th class="text-center" style="width: 14%;">Mié</th>
+                                                <th class="text-center" style="width: 14%;">Jue</th>
+                                                <th class="text-center" style="width: 14%;">Vie</th>
+                                                <th class="text-center" style="width: 14%;">Sáb</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="horario-tbody">
+                                            <!-- Las filas del horario se generarán dinámicamente aquí -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <!-- Vista Móvil: Lista por días -->
+                                <div class="d-lg-none" id="horario-mobile-container">
+                                    <!-- Tabs de navegación por días -->
+                                    <div class="mobile-days-tabs">
+                                        <div class="nav nav-pills nav-justified" id="mobile-days-tabs" role="tablist">
+                                            <button class="nav-link active" id="day-lunes-tab" data-bs-toggle="pill" data-bs-target="#day-lunes" type="button" role="tab">
+                                                Lun
+                                            </button>
+                                            <button class="nav-link" id="day-martes-tab" data-bs-toggle="pill" data-bs-target="#day-martes" type="button" role="tab">
+                                                Mar
+                                            </button>
+                                            <button class="nav-link" id="day-miercoles-tab" data-bs-toggle="pill" data-bs-target="#day-miercoles" type="button" role="tab">
+                                                Mié
+                                            </button>
+                                            <button class="nav-link" id="day-jueves-tab" data-bs-toggle="pill" data-bs-target="#day-jueves" type="button" role="tab">
+                                                Jue
+                                            </button>
+                                            <button class="nav-link" id="day-viernes-tab" data-bs-toggle="pill" data-bs-target="#day-viernes" type="button" role="tab">
+                                                Vie
+                                            </button>
+                                            <button class="nav-link" id="day-sabado-tab" data-bs-toggle="pill" data-bs-target="#day-sabado" type="button" role="tab">
+                                                Sáb
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Contenido de cada día -->
+                                    <div class="tab-content p-3" id="mobile-days-content">
+                                        <div class="tab-pane fade show active" id="day-lunes" role="tabpanel">
+                                            <div id="mobile-materias-lunes" class="mobile-materias-list">
+                                                <p class="text-muted text-center py-4">No hay materias inscritas para este día</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="day-martes" role="tabpanel">
+                                            <div id="mobile-materias-martes" class="mobile-materias-list">
+                                                <p class="text-muted text-center py-4">No hay materias inscritas para este día</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="day-miercoles" role="tabpanel">
+                                            <div id="mobile-materias-miercoles" class="mobile-materias-list">
+                                                <p class="text-muted text-center py-4">No hay materias inscritas para este día</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="day-jueves" role="tabpanel">
+                                            <div id="mobile-materias-jueves" class="mobile-materias-list">
+                                                <p class="text-muted text-center py-4">No hay materias inscritas para este día</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="day-viernes" role="tabpanel">
+                                            <div id="mobile-materias-viernes" class="mobile-materias-list">
+                                                <p class="text-muted text-center py-4">No hay materias inscritas para este día</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="day-sabado" role="tabpanel">
+                                            <div id="mobile-materias-sabado" class="mobile-materias-list">
+                                                <p class="text-muted text-center py-4">No hay materias inscritas para este día</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal de Advertencia (para traslape de horarios) -->
+        <div class="modal fade" id="warning-modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning">
+                        <h5 class="modal-title">
+                            <span style="display: inline-flex; align-items: center; margin-right: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></span> Advertencia
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="warning-message"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Entendido</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Compartir Horario -->
+        <div class="modal fade" id="modal-compartir-horario" tabindex="-1" aria-labelledby="modalCompartirLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title">
+                            <span style="display: inline-flex; align-items: center; margin-right: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg></span> Compartir Horario
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-3">Comparte tu horario con tus amigos para que vean qué materias llevarán juntos.</p>
+                        <div class="mb-3">
+                            <label for="enlace-compartir" class="form-label">Enlace para compartir:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="enlace-compartir" readonly>
+                                <button class="btn btn-outline-secondary" type="button" id="btn-copiar-enlace">
+                                    <span style="display: inline-flex; align-items: center;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></span> Copiar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 mb-3">
+                            <button class="btn btn-primary" type="button" id="btn-visitar-enlace" target="_blank">
+                                <span style="display: inline-flex; align-items: center; margin-right: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></span> Visitar Enlace
+                            </button>
+                        </div>
+                        <div class="alert alert-info" role="alert">
+                            <small><strong>Nota:</strong> Asegúrate de haber guardado tu horario antes de compartirlo.</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- html2canvas para capturar HTML como imagen -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- jsPDF para generar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- JavaScript Personalizado -->
+    <script src="js/app.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/materias.js"></script>
+    <script src="js/horario.js"></script>
+
+    <!-- Inicializar AOS -->
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos de configuración local
+php/config.local.php
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+php/logs/
+apache/logs/
+
+# Archivos temporales
+*.tmp
+*.temp
+*.cache
+*.swp
+*.swo
+*~
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos de backup
+*.bak
+*.backup
+*.sql.bak
+
+# Archivos de sesión
+sessions/
+tmp/
+
+# Archivos de upload (si los hay)
+uploads/
+files/
+
+# Node modules (si se agregan dependencias npm en el futuro)
+node_modules/
+package-lock.json
+
+# Archivos compilados
+dist/
+build/
+
+# Archivos de prueba
+test/
+tests/
+*.test.php
+
+# Archivos de documentación generados
+docs/generated/
+
+# Archivos de base de datos locales (no subir backups)
+*.sql
+!database/crear_base_datos.sql
+!database/crear_tabla_horarios_compartidos.sql
+
+# Archivos de configuración sensibles
+config.local.php
+config.production.php
