@@ -152,10 +152,8 @@ horario-fi/
 ![Horario](screenshots/horario.jpg)
 *Visualización del horario semanal con materias inscritas y colores diferenciados*
 
-### Vista Móvil
-![Mobile](screenshots/mobile.jpg)
-*Vista responsive optimizada para dispositivos móviles con navegación por tabs*
-[Compartir](screenshots/compartir.jpg)
+### Compartir Horario
+![Compartir](screenshots/compartir.jpg)
 *Modal para compartir el horario con enlace único*
 
 ### Exportar PDF
