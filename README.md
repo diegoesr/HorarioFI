@@ -184,5 +184,5 @@ horario-fi/
 
 ## 👥 Autores
 
-- **Diego Esparza Rodríguez** - *Desarrollo inicial* - [diegoesr](https://github.com/diegoesr)
+- **Diego Esparza Rodríguez** - [diegoesr](https://github.com/diegoesr)
 
